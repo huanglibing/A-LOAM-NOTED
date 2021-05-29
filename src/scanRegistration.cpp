@@ -138,6 +138,20 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
     removeClosedPointCloud(laserCloudIn, laserCloudIn, MINIMUM_RANGE);
 
 
+    // static int runNum=0;
+    // runNum++;
+    // printf("test one %d \r\n",runNum);
+
+    // if(runNum<2)
+    // {
+    //     std::cout << "there are " << laserCloudIn.points.size() << " points" << std::endl;//输出的图像看不见点了，但size不变
+    //     std::cout << indices.size() << std::endl;//输出的下标和cloud的完全一样      
+    //     pcl::io::savePCDFileASCII("/home/hlb/catkin_ws/test_pcd.pcd",laserCloudIn);
+    // }
+
+    // return;
+
+    
     int cloudSize = laserCloudIn.points.size();
     float startOri = -atan2(laserCloudIn.points[0].y, laserCloudIn.points[0].x);
     float endOri = -atan2(laserCloudIn.points[cloudSize - 1].y,
@@ -152,7 +166,7 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
     {
         endOri += 2 * M_PI;
     }
-    //printf("end Ori %f\n", endOri);
+    printf("end1 Ori %f\n", endOri);
 
     bool halfPassed = false;
     int count = cloudSize;
@@ -497,6 +511,7 @@ int main(int argc, char **argv)
 
     pubRemovePoints = nh.advertise<sensor_msgs::PointCloud2>("/laser_remove_points", 100);
 
+    //
     if(PUB_EACH_LINE)
     {
         for(int i = 0; i < N_SCANS; i++)
@@ -505,7 +520,10 @@ int main(int argc, char **argv)
             pubEachScan.push_back(tmp);
         }
     }
-    ros::spin();
+
+    //printf("scan line number %d \n", PUB_EACH_LINE);
+
+    ros::spin(); // 主程序到这里往下不再进行，等待话题进来回调就行
 
     return 0;
 }

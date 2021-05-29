@@ -38,6 +38,7 @@ int main(int argc, char** argv)
 {
     ros::init(argc, argv, "kitti_helper");
     ros::NodeHandle n("~");
+
     std::string dataset_folder, sequence_number, output_bag_file;
     n.getParam("dataset_folder", dataset_folder);
     n.getParam("sequence_number", sequence_number);
@@ -81,6 +82,8 @@ int main(int argc, char** argv)
 
     std::string line;
     std::size_t line_num = 0;
+
+    printf("test\r\n");
 
     ros::Rate r(10.0 / publish_delay);
     while (std::getline(timestamp_file, line) && ros::ok())
@@ -171,12 +174,13 @@ int main(int argc, char** argv)
             bag_out.write("/path_gt", ros::Time::now(), pathGT);
             bag_out.write("/odometry_gt", ros::Time::now(), odomGT);
         }
+        printf("test");
 
         line_num ++;
         r.sleep();
     }
     bag_out.close();
-    std::cout << "Done \n";
+    std::cout << "Done1 \n";
 
 
     return 0;

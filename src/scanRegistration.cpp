@@ -151,7 +151,7 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
 
     // return;
 
-    
+    // 获取一帧点云数据时间序列
     int cloudSize = laserCloudIn.points.size();
     float startOri = -atan2(laserCloudIn.points[0].y, laserCloudIn.points[0].x);
     float endOri = -atan2(laserCloudIn.points[cloudSize - 1].y,
@@ -166,7 +166,10 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
     {
         endOri += 2 * M_PI;
     }
-    printf("end1 Ori %f\n", endOri);
+    // printf("start Ori %f\n", startOri*57.3);
+    // printf("end1 Ori %f\n", endOri*57.3);
+
+    //return;
 
     bool halfPassed = false;
     int count = cloudSize;

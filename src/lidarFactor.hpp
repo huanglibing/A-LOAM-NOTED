@@ -23,6 +23,20 @@ struct LidarEdgeFactor
 		Eigen::Matrix<T, 3, 1> lpa{T(last_point_a.x()), T(last_point_a.y()), T(last_point_a.z())};
 		Eigen::Matrix<T, 3, 1> lpb{T(last_point_b.x()), T(last_point_b.y()), T(last_point_b.z())};
 
+		// static int showFirstFlag=0;
+		// if(showFirstFlag==0)
+		// {
+		// 	showFirstFlag=1;
+		// 	std::cout << "cp:" << std::endl;
+		// 	std::cout << cp << std::endl;//输出的下标和cloud的完全一样
+		// 	std::cout << curr_point.x() << curr_point.y() << curr_point.z() << std::endl;//输出的下标和cloud的完全一样
+		// 	//std::cout << "cp:" << std::endl;
+		// 	//std::cout << lpa << std::endl;//输出的下标和cloud的完全一样
+		// 	//std::cout << lpb << std::endl;//输出的下标和cloud的完全一样
+			
+		// }
+		
+
 		//Eigen::Quaternion<T> q_last_curr{q[3], T(s) * q[0], T(s) * q[1], T(s) * q[2]};
 		Eigen::Quaternion<T> q_last_curr{q[3], q[0], q[1], q[2]};
 		Eigen::Quaternion<T> q_identity{T(1), T(0), T(0), T(0)};
@@ -45,6 +59,9 @@ struct LidarEdgeFactor
 		residual[0] = nu.x() / de.norm();
 		residual[1] = nu.y() / de.norm();
 		residual[2] = nu.z() / de.norm();
+
+
+		//上面是残差，由于没有给出雅克比矩阵，系统自动求导
 
 		return true;
 	}
